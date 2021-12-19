@@ -1,7 +1,11 @@
-using FKDesignDataAccess;
+﻿using FKDesignDataAccess;
+using FKDesignDataAccess.Repositories;
+using FKDesignEntities.Models;
+using FKDesignEntities.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,11 +28,17 @@ namespace FKDesignApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddRazorPages();
+        {  services.AddRazorPages();
             services.AddDbContext<FKDesignDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<ISettingRepository, SettingRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            //services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<FKDesignDBContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +46,7 @@ namespace FKDesignApi
         {
             if (env.IsDevelopment())
             {
+                //bir yerde bu oluşuyor ve hata buna geliyor FKDesignDBContext
                 app.UseDeveloperExceptionPage();
             }
             else

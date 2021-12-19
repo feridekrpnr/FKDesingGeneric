@@ -18,6 +18,6 @@ namespace FKDesignEntities.Models
         //1-N User:1 Order:N
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public User user { get; set; }
+        public User User { get; set; }
     }
 }

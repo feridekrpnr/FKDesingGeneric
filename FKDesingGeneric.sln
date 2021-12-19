@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FKDesignEntities", "FKDesig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FKDesignDataAccess", "FKDesignDataAccess\FKDesignDataAccess.csproj", "{6AAE383E-9D41-4CEF-B5CD-83DAAEEC04BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FKDesignApi", "FKDesignApi\FKDesignApi.csproj", "{B8F8FF51-E7A8-4AF6-9D7D-D22FB8AC3F62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FKDesignApi", "FKDesignApi\FKDesignApi.csproj", "{B8F8FF51-E7A8-4AF6-9D7D-D22FB8AC3F62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
