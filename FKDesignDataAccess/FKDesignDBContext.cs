@@ -10,16 +10,12 @@ namespace FKDesignDataAccess
 {
     public class FKDesignDBContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=DESKTOP-CCT1C3T; Database=FKDesignGeneric; uid=feridekrpnr46; pwd=12345");
-        }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    base.OnConfiguring(optionsBuilder);
-        //    optionsBuilder.UseSqlServer("Server=DESKTOP-CCT1C3T; Database=FKDesignDBGeneric; uid=feridekrpnr46; pwd=123");
+        //    optionsBuilder.UseSqlServer("Server=DESKTOP-CCT1C3T; Database=FKDesignGeneric; uid=feridekrpnr46; pwd=12345");
         //}
+
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
         //    base.OnModelCreating(builder);
@@ -27,12 +23,11 @@ namespace FKDesignDataAccess
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            //builder.ApplyConfiguration(new ProductConfiguration());
-            //builder.ApplyConfiguration(new CategoryConfiguration());
-            builder.Entity<User>()
-                .HasMany(u => u.Comments)
-                .WithOne(p => p.User)
-                .HasForeignKey(p => p.UserId);
+
+            //builder.Entity<User>()
+            //    .HasMany(u => u.Comments)
+            //    .WithOne(p => p.User)
+            //    .HasForeignKey(p => p.UserId);
         }
 
         public FKDesignDBContext(DbContextOptions<FKDesignDBContext> options) : base(options)
@@ -50,9 +45,12 @@ namespace FKDesignDataAccess
         public DbSet<Order> Orders { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Role> Role { get; set; }
-        
 
-       
+        public FKDesignDBContext()
+        {
+
+        }
+
     }
-   
+
 }

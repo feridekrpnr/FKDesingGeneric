@@ -1,6 +1,7 @@
-ï»¿using FKDesignDataAccess;
+using FKDesignBusiness.Abstract;
+using FKDesignBusiness.Concrete;
+using FKDesignDataAccess;
 using FKDesignDataAccess.Repositories;
-using FKDesignEntities.Models;
 using FKDesignEntities.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,17 +29,18 @@ namespace FKDesignApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {  services.AddRazorPages();
+        {
+            services.AddRazorPages();
+            services.AddControllers();
+            services.AddSwaggerDocument();
+            services.AddScoped<IUnitOfWork, UnitOfWork>(); //ayný olan her request için ayný sonucu oluþtururum
+            services.AddScoped<IProductServices, ProductServices>();
+            services.AddScoped<ICategoryServices, CategoryServices>();
+    
             services.AddDbContext<FKDesignDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<ICommentRepository, CommentRepository>();
-            services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<ISettingRepository, SettingRepository>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            //services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<FKDesignDBContext>();
+            services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<FKDesignDBContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +48,6 @@ namespace FKDesignApi
         {
             if (env.IsDevelopment())
             {
-                //bir yerde bu oluÅŸuyor ve hata buna geliyor FKDesignDBContext
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -60,11 +61,14 @@ namespace FKDesignApi
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }

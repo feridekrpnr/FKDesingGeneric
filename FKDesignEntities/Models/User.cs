@@ -8,7 +8,7 @@ using System.Text;
 
 namespace FKDesignEntities.Models
 {
-    public class User
+    public class User: IdentityUser<int>
     {
         public User()
         {
@@ -20,12 +20,12 @@ namespace FKDesignEntities.Models
 
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        
         [Required]
         [StringLength(50)]
-        public string UserName { get; set; }
+       
         public string UserSurname { get; set; }
-        public string Email { get; set; }
+        
         public int Password { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Product> Products { get; set; }

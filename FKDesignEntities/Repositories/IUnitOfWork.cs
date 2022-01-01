@@ -11,6 +11,14 @@ namespace FKDesignEntities.Repositories
         IProfileRepository Profiles { get; }
         IProductRepository Products { get; }
         ICategoryRepository Categories { get; }
+        ICommentRepository Comments { get; }
+        IOrderRepository Orders { get; }
+        IRoleRepository Role { get; }
+        IImageRepository Images { get; }
+        IFaqRepository Faqs { get; }
+        IMessageRepository Messages { get; }
+        ISettingRepository Settings { get; }
+
         Task<int> CommitAsync();
     }
 }

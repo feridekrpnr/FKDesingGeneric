@@ -6,12 +6,12 @@ using System.Text;
 
 namespace FKDesignEntities.Models
 {
-    public class Role
+    public class Role: IdentityRole<int>
     {
         public int RoleId { get; set; }
         [Required]
         [StringLength(50)]
-        public string RolName { get; set; }
+        public string RoleName { get; set; }
        
     }
 }
